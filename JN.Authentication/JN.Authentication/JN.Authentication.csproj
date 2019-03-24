@@ -22,6 +22,9 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <Version>1.0.0</Version>
+    <PackageLicenseUrl>https://github.com/jlnovais/JN.Authentication/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/jlnovais/JN.Authentication</PackageProjectUrl>
+    <Copyright>Jose Novais</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
