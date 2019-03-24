@@ -50,6 +50,7 @@ namespace JN.Authentication.APITest
                     options.LogInformation = true;
                     options.HttpPostMethodOnly = httpPostMethodOnly;
                     options.AcceptsQueryString = apiKeyAcceptsQueryString;
+                    options.HeaderName = "ApiKey";
                     options.ValidateKey = ValidationService.ValidateApiKey;
                     options.ChallengeResponse = ValidationService.ChallengeResponse;
 
