@@ -10,7 +10,7 @@
     <license type="expression">MIT</license>
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <projectUrl>https://github.com/jlnovais/JN.Authentication</projectUrl>
-    <tags>Basic;Basic Authorization;BasicAuth;Authorization;Auth;ApiKey;ApiKeyAuth;Apikey Authorization;Api Key;API;ASPNET core;aspnetcore</tags>
+    <tags>Authentication;Basic;BasicAuth;BasicAuthentication;Auth;ApiKey;ApiKeyAuth;ApikeyAuthentication;Api;Key;ASPNET;core;aspnetcore;middleware</tags>
     <description>Simple Authentication implementation for ASP.NET Core. Basic Authentication Scheme and API Key Custom Authentication Scheme.</description>
     <summary>Basic Authentication and API Key Custom Authentication Schemes</summary>
     <copyright>Copyright © Jose Novais, 2019</copyright>
