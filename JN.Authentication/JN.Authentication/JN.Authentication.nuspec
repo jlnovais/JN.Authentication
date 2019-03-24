@@ -14,7 +14,7 @@
     <copyright>Copyright © Jose Novais, 2019</copyright>
     <dependencies>
       <group targetFramework=".NETCoreApp2.0">
-        <dependency id="Microsoft.AspNetCore.All" version="2.0.7" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.All" version="2.0.9" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
