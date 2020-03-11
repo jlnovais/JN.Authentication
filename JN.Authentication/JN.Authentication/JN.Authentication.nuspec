@@ -6,6 +6,8 @@
     <authors>José Novais</authors>
     <owners>José Novais</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <projectUrl>https://github.com/jlnovais/JN.Authentication</projectUrl>
     <tags>Authentication;Basic;BasicAuth;BasicAuthentication;Auth;ApiKey;ApiKeyAuth;ApikeyAuthentication;Api;Key;ASPNET;core;aspnetcore;middleware;asp-net-core;basic-authentication;authentication-middleware;identity</tags>
     <description>
