@@ -7,12 +7,10 @@ namespace JN.Authentication.Scheme
     {
         public void PostConfigure(string name, BasicAuthenticationOptions options)
         {
-            //not needed
-
-            //if (string.IsNullOrWhiteSpace(options.Realm))
-            //{
-            //    throw new InvalidOperationException("Realm must be provided in options");
-            //}
+            if (string.IsNullOrWhiteSpace(options.Realm))
+            {
+                throw new InvalidOperationException("Realm must be provided in options");
+            }
         }
     }
 }

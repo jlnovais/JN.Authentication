@@ -2,19 +2,27 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>JN.Authentication</id>
-    <version>1.0.1</version>
-    <title>JN.Authentication</title>
+    <version>1.2.0</version>
     <authors>José Novais</authors>
     <owners>José Novais</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="expression">MIT</license>
-    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <projectUrl>https://github.com/jlnovais/JN.Authentication</projectUrl>
-    <tags>Authentication;Basic;BasicAuth;BasicAuthentication;Auth;ApiKey;ApiKeyAuth;ApikeyAuthentication;Api;Key;ASPNET;core;aspnetcore;middleware</tags>
-    <description>Simple Authentication implementation for ASP.NET Core. Basic Authentication Scheme and API Key Custom Authentication Scheme.</description>
+    <tags>Authentication;Basic;BasicAuth;BasicAuthentication;Auth;ApiKey;ApiKeyAuth;ApikeyAuthentication;Api;Key;ASPNET;core;aspnetcore;middleware;asp-net-core;basic-authentication;authentication-middleware;identity</tags>
+    <description>
+      Simple Authentication implementation for ASP.NET Core.
+
+      - Basic Authentication Scheme
+      - API Key Custom Authentication Scheme
+    </description>
     <summary>Basic Authentication and API Key Custom Authentication Schemes</summary>
-    <copyright>Copyright © Jose Novais, 2019</copyright>
-    <releaseNotes>Updated dependencies.</releaseNotes>
+    <copyright>Jose Novais, 2020</copyright>
+    <releaseNotes>
+      Changes v1.2.0:
+
+      - minor updates in logging error messages
+      - added validation interfaces to use with DI
+      - updated tests
+    </releaseNotes>
     <dependencies>
       <group targetFramework=".NETCoreApp2.0">
         <dependency id="Microsoft.AspNetCore.All" version="2.0.9" exclude="Build,Analyzers" />

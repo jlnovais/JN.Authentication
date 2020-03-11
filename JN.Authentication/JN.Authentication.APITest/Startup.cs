@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using JN.Authentication.Scheme;
+using JN.Authentication.APITest.Services;
+using JN.Authentication.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace JN.Authentication.APITest
 {
@@ -25,7 +28,7 @@ namespace JN.Authentication.APITest
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            var apiKeyAcceptsQueryString = GetApiKeyAcceptsQueryString();
+            var apiKeyAcceptsQueryString = GetAPIKeyAcceptsQueryString();
             var httpPostMethodOnly = GetHttpPostMethodOnly();
 
             // Basic authentication - using Scheme
@@ -36,9 +39,27 @@ namespace JN.Authentication.APITest
                     options.LogInformation = true; //optional, default is false;
                     options.HttpPostMethodOnly = httpPostMethodOnly;
                     options.HeaderEncoding = Encoding.UTF8; //optional, default is UTF8;
-                    options.ValidateUser = ValidationService.ValidateUser;
+                    //options.ValidateUser = ValidationService.ValidateUser;
                     options.ChallengeResponse = ValidationService.ChallengeResponse;
+
                 });
+
+
+            // Basic authentication - with post only
+            services.AddAuthentication(BasicAuthenticationDefaults.AuthenticationScheme + "PostOnly")
+                .AddBasic(options =>
+                {
+                    options.Realm = "api";
+                    options.LogInformation = true; //optional, default is false;
+                    options.HttpPostMethodOnly = true;
+                    options.HeaderEncoding = Encoding.UTF8; //optional, default is UTF8;
+                    //options.ValidateUser = ValidationService.ValidateUser;
+                    options.ChallengeResponse = ValidationService.ChallengeResponse;
+
+                }, "PostOnly");
+
+            services.AddSingleton<IBasicValidationService, BasicValidationService>();
+
             // END: Basic authentication - using Scheme
 
 
@@ -50,11 +71,23 @@ namespace JN.Authentication.APITest
                     options.LogInformation = true;
                     options.HttpPostMethodOnly = httpPostMethodOnly;
                     options.AcceptsQueryString = apiKeyAcceptsQueryString;
-                    options.HeaderName = "ApiKey";
-                    options.ValidateKey = ValidationService.ValidateApiKey;
+                    //options.ValidateKey = ValidationService.ValidateApiKey;
                     options.ChallengeResponse = ValidationService.ChallengeResponse;
 
                 });
+
+            services.AddAuthentication(ApiKeyAuthenticationDefaults.AuthenticationScheme + "NoGet")
+                .AddApiKey(options =>
+                {
+                    options.LogInformation = true;
+                    options.HttpPostMethodOnly = httpPostMethodOnly;
+                    options.AcceptsQueryString = false;
+                    //options.ValidateKey = ValidationService.ValidateApiKey;
+                    options.ChallengeResponse = ValidationService.ChallengeResponse;
+
+                }, "NoGet");
+
+            services.AddSingleton<IApiKeyValidationService, ApiKeyValidationService>();
 
             // END: ApiKey authentication - using Scheme
 
@@ -67,11 +100,12 @@ namespace JN.Authentication.APITest
                 options.AddPolicy("IsNotAdminPolicy", policy => policy.Requirements.Add(new CustomRequirement(false)));
             });
 
-            services.AddSingleton<IAuthorizationHandler,  CustomAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, CustomAuthorizationHandler>();
             /*Authorization using custom policies - end*/
 
 
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -89,7 +123,7 @@ namespace JN.Authentication.APITest
             app.UseMvc();
         }
 
-        private bool GetApiKeyAcceptsQueryString()
+        private bool GetAPIKeyAcceptsQueryString()
         {
             var res = true;
 

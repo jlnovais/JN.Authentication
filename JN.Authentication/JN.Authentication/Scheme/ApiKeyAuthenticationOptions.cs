@@ -16,6 +16,7 @@ namespace JN.Authentication.Scheme
         /// <summary>
         /// Called to validate a api key.
         /// </summary>
+        [Obsolete("This property is obsolete. Use IApiKeyValidationService instead.", false)]
         public Func<string, Task<ValidationResult>> ValidateKey { get; set; }
         /// <summary>
         /// Called before a 401 response is sent to the client

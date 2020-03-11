@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using JN.Authentication.HelperClasses;
+using JN.Authentication.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -14,6 +15,7 @@ namespace JN.Authentication.Scheme
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<BasicAuthenticationOptions>
     {
+        private readonly IBasicValidationService _validationService;
         private const string AuthorizationHeaderName = "Authorization";
         private const string SchemeName = "Basic";
 
@@ -21,9 +23,11 @@ namespace JN.Authentication.Scheme
             IOptionsMonitor<BasicAuthenticationOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
-            ISystemClock clock)
+            ISystemClock clock,
+            IBasicValidationService validationService = null)
             : base(options, logger, encoder, clock)
         {
+            _validationService = validationService;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -40,8 +44,8 @@ namespace JN.Authentication.Scheme
             if (!AuthenticationHeaderValue.TryParse(Request.Headers[AuthorizationHeaderName],
                 out AuthenticationHeaderValue headerValue))
             {
-                if (Options.LogInformation)
-                    Logger.LogError("Invalid Authorization header");
+                //if (Options.LogInformation)
+                //    Logger.LogError("Invalid Authorization header");
                 return AuthenticateResult.NoResult();
             }
 
@@ -81,7 +85,10 @@ namespace JN.Authentication.Scheme
             ValidationResult userValidationResult;
             try
             {
-                userValidationResult = await Options.ValidateUser(user, password, Options.Realm);
+                if (_validationService != null)
+                    userValidationResult = await _validationService.ValidateUser(user, password, Options.Realm);
+                else
+                    userValidationResult = await Options.ValidateUser(user, password, Options.Realm);
 
                 if (!userValidationResult.Success && userValidationResult.ErrorCode != 0)
                     return AuthenticateResult.Fail(new CustomAuthException(userValidationResult.ErrorDescription,
@@ -138,22 +145,20 @@ namespace JN.Authentication.Scheme
                 return;
             }
 
+
             var result = await Options.ChallengeResponse(authResult.Failure);
+
 
             Response.StatusCode = result.statusCode >= 200 ? result.statusCode : defaultStatus;
 
             //Response.Headers.Add("WWW-Authenticate", $"Basic realm=\"{Options.Realm}\", charset=\"{Options.HeaderEncoding.HeaderName}\"");
 
             if (Response.StatusCode == defaultStatus)
-                Response.Headers["WWW-Authenticate"] = $"Basic {GetRealm(Options.Realm)}charset=\"{Options.HeaderEncoding.HeaderName}\"";
+                Response.Headers["WWW-Authenticate"] = $"Basic realm=\"{Options.Realm}\", charset=\"{Options.HeaderEncoding.HeaderName}\"";
 
             if (!string.IsNullOrWhiteSpace(result.textToWriteOutput))
                 await Response.WriteAsync(result.textToWriteOutput);
-        }
 
-        private string GetRealm(string realm)
-        {
-            return !string.IsNullOrWhiteSpace(realm) ? $"realm=\"{realm}\", " : "";
         }
     }
 }

@@ -14,21 +14,24 @@ namespace JN.Authentication.Scheme
 
         public static AuthenticationBuilder AddBasic(this AuthenticationBuilder builder,
             string authenticationScheme)
-            {
+        {
             return AddBasic(builder, authenticationScheme, _ => { });
         }
 
         public static AuthenticationBuilder AddBasic(this AuthenticationBuilder builder,
-            Action<BasicAuthenticationOptions> configureOptions)
+            Action<BasicAuthenticationOptions> configureOptions, string tag = null)
         {
-            return AddBasic(builder, BasicAuthenticationDefaults.AuthenticationScheme, configureOptions);
+            return AddBasic(builder, BasicAuthenticationDefaults.AuthenticationScheme, configureOptions, tag);
         }
 
         public static AuthenticationBuilder AddBasic(this AuthenticationBuilder builder,
-            string authenticationScheme, Action<BasicAuthenticationOptions> configureOptions)
+            string authenticationScheme, Action<BasicAuthenticationOptions> configureOptions, string tag = null)
         {
             builder.Services
                 .AddSingleton<IPostConfigureOptions<BasicAuthenticationOptions>, BasicAuthenticationPostConfigureOptions>();
+
+            if (!string.IsNullOrWhiteSpace(tag))
+                authenticationScheme += tag;
 
             return builder.AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>(authenticationScheme, configureOptions);
         }

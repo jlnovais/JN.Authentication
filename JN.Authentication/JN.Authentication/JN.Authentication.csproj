@@ -18,13 +18,18 @@
 - API Key Custom Authentication Scheme
 </Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>update dependencices</PackageReleaseNotes>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
-    <Version>1.0.1</Version>
+    <PackageReleaseNotes>-------
+Changes v1.2.0:
+
+- minor updates in logging error messages
+- added validation interfaces to use with DI
+- updated tests</PackageReleaseNotes>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.2.0</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/jlnovais/JN.Authentication</PackageProjectUrl>
-    <Copyright>Jose Novais, 2019</Copyright>
+    <Copyright>Jose Novais, 2020</Copyright>
     <Product>JN.Authentication - Basic Authentication and API Key Custom Authentication Schemes</Product>
   </PropertyGroup>
 

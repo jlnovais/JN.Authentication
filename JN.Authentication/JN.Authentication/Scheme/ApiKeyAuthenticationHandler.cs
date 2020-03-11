@@ -4,23 +4,27 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using JN.Authentication.HelperClasses;
+using JN.Authentication.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 
 namespace JN.Authentication.Scheme
 {
     public class ApiKeyAuthenticationHandler : AuthenticationHandler<ApiKeyAuthenticationOptions>
     {
+        private readonly IApiKeyValidationService _validationService;
+
         public ApiKeyAuthenticationHandler(
             IOptionsMonitor<ApiKeyAuthenticationOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
-            ISystemClock clock)
+            ISystemClock clock,
+            IApiKeyValidationService validationService = null)
             : base(options, logger, encoder, clock)
         {
+            _validationService = validationService;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -34,7 +38,7 @@ namespace JN.Authentication.Scheme
 
             var key = Request.Headers[Options.HeaderName];
 
-            if(string.IsNullOrWhiteSpace(key) && Options.AcceptsQueryString)
+            if (string.IsNullOrWhiteSpace(key) && Options.AcceptsQueryString)
                 Request.Query.TryGetValue(Options.HeaderName, out key);
 
             if (string.IsNullOrWhiteSpace(key))
@@ -48,7 +52,10 @@ namespace JN.Authentication.Scheme
 
             try
             {
-                userValidationResult = await Options.ValidateKey(key);
+                if (_validationService != null)
+                    userValidationResult = await _validationService.ValidateApiKey(key);
+                else
+                    userValidationResult = await Options.ValidateKey(key);
 
                 if (!userValidationResult.Success && userValidationResult.ErrorCode != 0)
                     return AuthenticateResult.Fail(new CustomAuthException(userValidationResult.ErrorDescription,
@@ -63,7 +70,7 @@ namespace JN.Authentication.Scheme
 
                 return AuthenticateResult.Fail(new CustomAuthException(msg, ex, AuthenticationError.OtherError));
             }
-            
+
 
             if (!userValidationResult.Success)
             {
@@ -91,7 +98,7 @@ namespace JN.Authentication.Scheme
 
         protected override async Task HandleChallengeAsync(AuthenticationProperties properties)
         {
-            const int defaultStatus = (int) HttpStatusCode.Unauthorized;
+            const int defaultStatus = (int)HttpStatusCode.Unauthorized;
 
             Response.StatusCode = defaultStatus;
 

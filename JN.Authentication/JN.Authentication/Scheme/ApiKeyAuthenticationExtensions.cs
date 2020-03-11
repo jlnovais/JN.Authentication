@@ -17,15 +17,16 @@ namespace JN.Authentication.Scheme
         }
 
         public static AuthenticationBuilder AddApiKey(this AuthenticationBuilder builder,
-            Action<ApiKeyAuthenticationOptions> configureOptions)
+            Action<ApiKeyAuthenticationOptions> configureOptions, string tag = null)
         {
-            return AddApiKey(builder, ApiKeyAuthenticationDefaults.AuthenticationScheme, configureOptions);
+            return AddApiKey(builder, ApiKeyAuthenticationDefaults.AuthenticationScheme, configureOptions, tag);
         }
 
         public static AuthenticationBuilder AddApiKey(this AuthenticationBuilder builder,
-            string authenticationScheme, Action<ApiKeyAuthenticationOptions> configureOptions)
+            string authenticationScheme, Action<ApiKeyAuthenticationOptions> configureOptions, string tag = null)
         {
-            //builder.Services.AddTransient<IApiKeyValidationService, TAuthService>();
+            if (!string.IsNullOrWhiteSpace(tag))
+                authenticationScheme += tag;
 
             return builder.AddScheme<ApiKeyAuthenticationOptions, ApiKeyAuthenticationHandler>(authenticationScheme, configureOptions);
         }

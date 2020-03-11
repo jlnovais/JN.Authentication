@@ -23,11 +23,13 @@ public void ConfigureServices(IServiceCollection services)
           options.LogInformation = true; //optional, default is false;
           options.HttpPostMethodOnly = false;
           options.HeaderEncoding = Encoding.UTF8; //optional, default is UTF8;
-          options.ValidateUser = ValidateUser;
-          options.ChallengeResponse = ChallengeResponseBasic;
+          options.ChallengeResponse = ValidationService.ChallengeResponseBasic;
       });
 
-    // ApiKey authentication - using Scheme
+    // validation service
+    services.AddSingleton<IBasicValidationService, BasicValidationService>();
+
+    // ApiKey authentication
     services.AddAuthentication(ApiKeyAuthenticationDefaults.AuthenticationScheme)
       .AddApiKey(options =>
       {
@@ -35,25 +37,19 @@ public void ConfigureServices(IServiceCollection services)
           options.HttpPostMethodOnly = false;
           options.AcceptsQueryString = true;
           options.HeaderName = "ApiKey";
-          options.ValidateKey = ValidateApiKey;
-          options.ChallengeResponse = ChallengeResponseApikey;
+          options.ChallengeResponse = ValidationService.ChallengeResponseApikey;
       });
+
+    // validation service
+    services.AddSingleton<IApiKeyValidationService, ApiKeyValidationService>();
+
+
+
+
 }
 ```
-`ValidateUser`, `ChallengeResponseBasic`, `ValidateApiKey` and `ChallengeResponseApikey` are delegates used to validate access details (username/password or ApiKey). Example:
+`ChallengeResponseBasic` and `ChallengeResponseApikey` are delegates called before a 401 response is sent to the client.
 
-```csharp
-
-public static Task<ChallengeResult> ChallengeResponse(Exception ex)
-{
-    // your code here...
-}
-
-public static Task<ValidationResult> ValidateApiKey(string key)
-{
-    // your code here...
-}
-```
 On your controllers add the `Authorize` atribute and choose the Authentication Scheme ("Basic" or "ApiKey")
 
 ```csharp

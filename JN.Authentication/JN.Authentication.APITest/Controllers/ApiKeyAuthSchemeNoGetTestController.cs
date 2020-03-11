@@ -1,11 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AuthenticationDemo.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JN.Authentication.APITest.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = "ApiKeyNoGet", Policy = "IsAdminPolicy")]
     [ApiController]
-    public class BasicAuthMiddlewareTestController : ControllerBase
+    public class ApiKeyAuthSchemeNoGetTestController : ControllerBase
     {
         // GET api/values
         [HttpGet]
@@ -18,13 +24,14 @@ namespace JN.Authentication.APITest.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            return "value: " + id.ToString();
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("MyTest")]
+        public ActionResult<string> Post([FromBody] MyInputObject obj)
         {
+            return "Post test OK - input string was: " + obj.ToString();
         }
 
         // PUT api/values/5

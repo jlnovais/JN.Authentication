@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
 using AuthenticationDemo.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JN.Authentication.APITest.Controllers
 {
     [Route("api/[controller]")]
+
+    [Authorize(AuthenticationSchemes = "BasicPostOnly", Policy = "IsAdminPolicy")]
     [ApiController]
-    public class ApiKeyAuthMiddlewareTestController : ControllerBase
+
+    public class BasicAuthSchemePostOnlyTestController : ControllerBase
     {
         // GET api/values
         [HttpGet]
@@ -19,11 +23,11 @@ namespace JN.Authentication.APITest.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value: " + id.ToString();
+            return "value";
         }
 
         // POST api/values
-        [HttpPost("MyTest")]
+        [HttpPost]
         public ActionResult<string> Post([FromBody] MyInputObject obj)
         {
             return "Post test OK - input string was: " + obj.ToString();
@@ -41,6 +45,4 @@ namespace JN.Authentication.APITest.Controllers
         {
         }
     }
-
-
 }

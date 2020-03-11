@@ -18,7 +18,7 @@ namespace JN.Authentication.Tests
         {
             this.apiServer = new TestServer(WebHost
                 .CreateDefaultBuilder()
-                .UseStartup<Startup>().UseSetting("HttpPostMethodOnly","true")
+                .UseStartup<Startup>().UseSetting("HttpPostMethodOnly", "true")
             );
         }
 
@@ -30,6 +30,7 @@ namespace JN.Authentication.Tests
 
         private string pathApiKey = "/api/ApiKeyAuthSchemeTest/MyTest";
         private string pathBasic = "/api/BasicAuthSchemeTest";
+        private string pathBasicPostOnly = "/api/BasicAuthSchemePostOnlyTest";
 
 
 
@@ -38,7 +39,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(pathApiKey)
+            var response = await apiServer.CreateRequest(pathBasicPostOnly)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("ApiKey", "123")
@@ -69,7 +70,7 @@ namespace JN.Authentication.Tests
             string username = "test";
             string password = "123";
 
-            var response = await apiServer.CreateRequest(pathBasic)
+            var response = await apiServer.CreateRequest(pathBasicPostOnly)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("Authorization", "Basic " + Tools.BasicAuthCredentials(username, password))
                 .GetAsync();
@@ -93,7 +94,7 @@ namespace JN.Authentication.Tests
 
             Assert.That(response.StatusCode == HttpStatusCode.OK);
         }
-    
+
 
 
 

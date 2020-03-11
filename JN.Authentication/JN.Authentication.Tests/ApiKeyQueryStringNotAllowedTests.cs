@@ -29,6 +29,7 @@ namespace JN.Authentication.Tests
         }
 
         private string path = "/api/ApiKeyAuthSchemeTest";
+        private string pathNoGet = "/api/ApiKeyAuthSchemeNoGetTest";
 
 
         [Test]
@@ -36,7 +37,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path + "?ApiKey=123")
+            var response = await apiServer.CreateRequest(pathNoGet + "?ApiKey=123")
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .GetAsync();
