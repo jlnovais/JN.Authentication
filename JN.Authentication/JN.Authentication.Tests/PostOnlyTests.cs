@@ -11,12 +11,12 @@ namespace JN.Authentication.Tests
     public class PostOnlyTests
     {
 
-        private TestServer apiServer;
+        private TestServer _apiServer;
 
         [SetUp]
         public void Setup()
         {
-            this.apiServer = new TestServer(WebHost
+            _apiServer = new TestServer(WebHost
                 .CreateDefaultBuilder()
                 .UseStartup<Startup>().UseSetting("HttpPostMethodOnly", "true")
             );
@@ -25,12 +25,12 @@ namespace JN.Authentication.Tests
         [TearDown]
         public void TearDown()
         {
-            this.apiServer.Dispose();
+            this._apiServer.Dispose();
         }
 
-        private string pathApiKey = "/api/ApiKeyAuthSchemeTest/MyTest";
-        private string pathBasic = "/api/BasicAuthSchemeTest";
-        private string pathBasicPostOnly = "/api/BasicAuthSchemePostOnlyTest";
+        private readonly string pathApiKey = "/api/ApiKeyAuthSchemeTest/MyTest";
+        private readonly string pathBasic = "/api/BasicAuthSchemeTest";
+        private readonly string pathBasicPostOnly = "/api/BasicAuthSchemePostOnlyTest";
 
 
 
@@ -39,7 +39,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(pathBasicPostOnly)
+            var response = await _apiServer.CreateRequest(pathBasicPostOnly)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("ApiKey", "123")
@@ -53,7 +53,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(pathApiKey)
+            var response = await _apiServer.CreateRequest(pathApiKey)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("ApiKey", "123")
@@ -68,7 +68,7 @@ namespace JN.Authentication.Tests
             string username = "test";
             string password = "123";
 
-            var response = await apiServer.CreateRequest(pathBasicPostOnly)
+            var response = await _apiServer.CreateRequest(pathBasicPostOnly)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("Authorization", "Basic " + Tools.BasicAuthCredentials(username, password))
                 .GetAsync();
@@ -84,7 +84,7 @@ namespace JN.Authentication.Tests
             string username = "test";
             string password = "123";
 
-            var response = await apiServer.CreateRequest(pathBasic)
+            var response = await _apiServer.CreateRequest(pathBasic)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("Authorization", "Basic " + Tools.BasicAuthCredentials(username, password))

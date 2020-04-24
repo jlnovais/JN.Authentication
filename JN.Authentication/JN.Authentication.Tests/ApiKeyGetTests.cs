@@ -11,12 +11,12 @@ namespace JN.Authentication.Tests
     public class ApiKeyGetTests
     {
 
-        private TestServer apiServer;
+        private TestServer _apiServer;
 
         [SetUp]
         public void Setup()
         {
-            this.apiServer = new TestServer(WebHost
+            _apiServer = new TestServer(WebHost
                 .CreateDefaultBuilder()
                 .UseStartup<Startup>());
         }
@@ -24,17 +24,17 @@ namespace JN.Authentication.Tests
         [TearDown]
         public void TearDown()
         {
-            this.apiServer.Dispose();
+            _apiServer.Dispose();
         }
 
-        private string path = "/api/ApiKeyAuthSchemeTest";
+        private readonly string path = "/api/ApiKeyAuthSchemeTest";
 
         [Test]
         public async Task ApiKey_Get_ValidKey_ReturnsContent()
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("ApiKey", "123")
@@ -50,7 +50,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("ApiKey", "123")
@@ -65,7 +65,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("ApiKey", "invalid_key")
@@ -79,7 +79,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 //.AddHeader("ApiKey", "invalid_key")
@@ -93,7 +93,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("ApiKey", "")
@@ -110,7 +110,7 @@ namespace JN.Authentication.Tests
 
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("ApiKey", keyConfiguredToCauseError)
@@ -128,7 +128,7 @@ namespace JN.Authentication.Tests
 
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("ApiKey", keyConfiguredToCauseError)

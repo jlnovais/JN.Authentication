@@ -16,7 +16,7 @@ namespace JN.Authentication.APITest.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new[] { "value1", "value2" };
         }
 
         // GET api/values/5
@@ -37,12 +37,14 @@ namespace JN.Authentication.APITest.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+            //can be empty
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            //can be empty
         }
     }
 }

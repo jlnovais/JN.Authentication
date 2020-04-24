@@ -36,10 +36,9 @@ namespace JN.Authentication.APITest
                 .AddBasic(options =>
                 {
                     options.Realm = "api";
-                    options.LogInformation = true; //optional, default is false;
+                    options.LogInformation = true; 
                     options.HttpPostMethodOnly = httpPostMethodOnly;
-                    options.HeaderEncoding = Encoding.UTF8; //optional, default is UTF8;
-                    //options.ValidateUser = ValidationService.ValidateUser;
+                    options.HeaderEncoding = Encoding.UTF8; 
                     options.ChallengeResponse = ValidationService.ChallengeResponse;
 
                 });
@@ -80,7 +79,6 @@ namespace JN.Authentication.APITest
                     options.LogInformation = true;
                     options.HttpPostMethodOnly = httpPostMethodOnly;
                     options.AcceptsQueryString = false;
-                    //options.ValidateKey = ValidationService.ValidateApiKey;
                     options.ChallengeResponse = ValidationService.ChallengeResponse;
 
                 }, "NoGet");

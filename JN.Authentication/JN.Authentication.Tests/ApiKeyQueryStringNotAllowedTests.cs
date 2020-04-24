@@ -11,12 +11,12 @@ namespace JN.Authentication.Tests
     public class ApiKeyQueryStringNotAllowedTests
     {
 
-        private TestServer apiServer;
+        private TestServer _apiServer;
 
         [SetUp]
         public void Setup()
         {
-            this.apiServer = new TestServer(WebHost
+            this._apiServer = new TestServer(WebHost
                 .CreateDefaultBuilder()
                 .UseStartup<Startup>().UseSetting("ApiKeyAcceptsQueryString", "false")
             );
@@ -25,11 +25,11 @@ namespace JN.Authentication.Tests
         [TearDown]
         public void TearDown()
         {
-            this.apiServer.Dispose();
+            this._apiServer.Dispose();
         }
 
-        private string path = "/api/ApiKeyAuthSchemeTest";
-        private string pathNoGet = "/api/ApiKeyAuthSchemeNoGetTest";
+        private readonly string path = "/api/ApiKeyAuthSchemeTest";
+        private readonly string pathNoGet = "/api/ApiKeyAuthSchemeNoGetTest";
 
 
         [Test]
@@ -37,7 +37,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(pathNoGet + "?ApiKey=123")
+            var response = await _apiServer.CreateRequest(pathNoGet + "?ApiKey=123")
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .GetAsync();
@@ -51,7 +51,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path + "?ApiKey=invalid_key")
+            var response = await _apiServer.CreateRequest(path + "?ApiKey=invalid_key")
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .GetAsync();
@@ -64,7 +64,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .GetAsync();
@@ -77,7 +77,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path + "?ApiKey=")
+            var response = await _apiServer.CreateRequest(path + "?ApiKey=")
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .GetAsync();

@@ -11,14 +11,14 @@ namespace JN.Authentication.Tests
     public class BasicPostTests
     {
 
-        private string path = "/api/BasicAuthSchemeTest";
+        private readonly string path = "/api/BasicAuthSchemeTest";
 
-        private TestServer apiServer;
+        private TestServer _apiServer;
 
         [SetUp]
         public void Setup()
         {
-            this.apiServer = new TestServer(WebHost
+            _apiServer = new TestServer(WebHost
                 .CreateDefaultBuilder()
                 .UseStartup<Startup>()
             );
@@ -27,7 +27,7 @@ namespace JN.Authentication.Tests
         [TearDown]
         public void TearDown()
         {
-            this.apiServer.Dispose();
+            this._apiServer.Dispose();
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace JN.Authentication.Tests
             string username = "test";
             string password = "123";
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("Authorization", "Basic " + Tools.BasicAuthCredentials(username, password))
@@ -57,7 +57,7 @@ namespace JN.Authentication.Tests
             string username = "test";
             string password = "123";
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("Authorization", "Basic " + Tools.BasicAuthCredentials(username, password))
@@ -75,7 +75,7 @@ namespace JN.Authentication.Tests
             string username = "test";
             string password = "invalid_password";
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("Authorization", "Basic " + Tools.BasicAuthCredentials(username, password))
@@ -89,7 +89,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 //.AddHeader("Authorization", "Basic " + Tools.BasicAuthCredentials(username, password))
@@ -103,7 +103,7 @@ namespace JN.Authentication.Tests
         {
             var content = Tools.GetContent();
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("Authorization", "")
@@ -122,7 +122,7 @@ namespace JN.Authentication.Tests
 
             string password = "123";
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("Authorization", "Basic " + Tools.BasicAuthCredentials(userConfiguredToCauseError, password))
@@ -142,7 +142,7 @@ namespace JN.Authentication.Tests
 
             string password = "invalid_password";
 
-            var response = await apiServer.CreateRequest(path)
+            var response = await _apiServer.CreateRequest(path)
                 .And(x => x.Content = content)
                 .AddHeader("Content-Type", "application/json")
                 .AddHeader("Authorization", "Basic " + Tools.BasicAuthCredentials(keyConfiguredToCauseError, password))
