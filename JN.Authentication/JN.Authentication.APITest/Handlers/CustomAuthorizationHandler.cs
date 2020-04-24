@@ -8,11 +8,8 @@ namespace JN.Authentication.APITest.Handlers
     {
         private const string AdminClaimType = "IsAdmin";
 
-        private readonly IConfiguration _config;
-
         public CustomAuthorizationHandler(IConfiguration config)
         {
-            _config = config;
         }
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, CustomRequirement requirement)

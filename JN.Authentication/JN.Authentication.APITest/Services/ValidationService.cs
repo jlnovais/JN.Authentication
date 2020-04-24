@@ -24,26 +24,26 @@ namespace JN.Authentication.APITest.Services
                 switch (errorCode)
                 {
                     case AuthenticationError.MethodNotAllowed:
-                        res.statusCode = (int)HttpStatusCode.MethodNotAllowed;
-                        res.textToWriteOutput = "error was: Method Not Allowed";
+                        res.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
+                        res.TextToWriteOutput = "error was: Method Not Allowed";
                         break;
                     case AuthenticationError.OtherError:
-                        res.statusCode = (int)HttpStatusCode.BadRequest;
-                        res.textToWriteOutput = exception.Message;
+                        res.StatusCode = (int)HttpStatusCode.BadRequest;
+                        res.TextToWriteOutput = exception.Message;
                         break;
 
                     case (AuthenticationError)(-1):
-                        res.statusCode = (int)HttpStatusCode.RequestTimeout;
-                        res.textToWriteOutput = exception.Message;
+                        res.StatusCode = (int)HttpStatusCode.RequestTimeout;
+                        res.TextToWriteOutput = exception.Message;
                         break;
                     default:
-                        res.textToWriteOutput = ex.Message;
+                        res.TextToWriteOutput = ex.Message;
                         break;
                 }
             }
             else
             {
-                res.textToWriteOutput = ex.Message;
+                res.TextToWriteOutput = ex.Message;
             }
 
             return Task.FromResult(res);

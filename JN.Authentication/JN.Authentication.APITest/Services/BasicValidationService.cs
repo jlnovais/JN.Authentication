@@ -13,7 +13,7 @@ namespace JN.Authentication.APITest.Services
         public Task<ValidationResult> ValidateUser(string username, string password, string resourceName)
         {
             if (username == "exception")
-                throw new Exception("specified user causes an exception");
+                throw new ArgumentException("specified user causes an exception");
 
             var claims = new[]
             {

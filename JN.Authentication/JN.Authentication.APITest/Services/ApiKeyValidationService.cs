@@ -11,7 +11,7 @@ namespace JN.Authentication.APITest.Services
         public Task<ValidationResult> ValidateApiKey(string apiKey)
         {
             if (apiKey == "exception")
-                throw new Exception("specified key causes an exception");
+                throw new ArgumentException("specified key causes an exception");
 
             var claims = new[]
             {

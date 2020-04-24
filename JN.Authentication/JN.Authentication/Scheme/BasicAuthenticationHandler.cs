@@ -149,15 +149,15 @@ namespace JN.Authentication.Scheme
             var result = await Options.ChallengeResponse(authResult.Failure);
 
 
-            Response.StatusCode = result.statusCode >= 200 ? result.statusCode : defaultStatus;
+            Response.StatusCode = result.StatusCode >= 200 ? result.StatusCode : defaultStatus;
 
             //Response.Headers.Add("WWW-Authenticate", $"Basic realm=\"{Options.Realm}\", charset=\"{Options.HeaderEncoding.HeaderName}\"");
 
             if (Response.StatusCode == defaultStatus)
                 Response.Headers["WWW-Authenticate"] = $"Basic realm=\"{Options.Realm}\", charset=\"{Options.HeaderEncoding.HeaderName}\"";
 
-            if (!string.IsNullOrWhiteSpace(result.textToWriteOutput))
-                await Response.WriteAsync(result.textToWriteOutput);
+            if (!string.IsNullOrWhiteSpace(result.TextToWriteOutput))
+                await Response.WriteAsync(result.TextToWriteOutput);
 
         }
     }
