@@ -59,8 +59,6 @@ namespace JN.Authentication.Tests
                 .AddHeader("ApiKey", "123")
                 .PostAsync();
 
-            var y = response.StatusCode;
-
             Assert.That(response.StatusCode == HttpStatusCode.OK);
         }
 

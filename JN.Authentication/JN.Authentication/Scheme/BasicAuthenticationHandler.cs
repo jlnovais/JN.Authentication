@@ -44,8 +44,6 @@ namespace JN.Authentication.Scheme
             if (!AuthenticationHeaderValue.TryParse(Request.Headers[AuthorizationHeaderName],
                 out AuthenticationHeaderValue headerValue))
             {
-                //if (Options.LogInformation)
-                //    Logger.LogError("Invalid Authorization header");
                 return AuthenticateResult.NoResult();
             }
 
@@ -145,13 +143,9 @@ namespace JN.Authentication.Scheme
                 return;
             }
 
-
             var result = await Options.ChallengeResponse(authResult.Failure);
 
-
             Response.StatusCode = result.StatusCode >= 200 ? result.StatusCode : defaultStatus;
-
-            //Response.Headers.Add("WWW-Authenticate", $"Basic realm=\"{Options.Realm}\", charset=\"{Options.HeaderEncoding.HeaderName}\"");
 
             if (Response.StatusCode == defaultStatus)
                 Response.Headers["WWW-Authenticate"] = $"Basic realm=\"{Options.Realm}\", charset=\"{Options.HeaderEncoding.HeaderName}\"";
