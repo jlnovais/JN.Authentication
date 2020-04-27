@@ -1,8 +1,9 @@
 # JN.Authentication
 Simple Authentication implementation for ASP.NET Core.
 
-  - Basic Authentication Scheme
-  - API Key Custom Authentication Scheme
+- Basic Authentication Scheme
+
+- API Key Custom Authentication Scheme
 
 ## Install
 Download the package from NuGet:
@@ -43,9 +44,6 @@ public void ConfigureServices(IServiceCollection services)
     // validation service
     services.AddSingleton<IApiKeyValidationService, ApiKeyValidationService>();
 
-
-
-
 }
 ```
 `ChallengeResponseBasic` and `ChallengeResponseApikey` are delegates called before a 401 response is sent to the client.
@@ -66,8 +64,9 @@ public class BasicAuthSchemeTestController : ControllerBase
 
 Both authentication schemes allows to:
 
-  - `LogInformation`: log information using a logging provider 
-  - `HttpPostMethodOnly`: allows only POST requests
+- `LogInformation`: log information using a logging provider 
+
+- `HttpPostMethodOnly`: allows only POST requests
 
 Basic allows to specify a `Realm` and `HeaderEncoding`.
 
