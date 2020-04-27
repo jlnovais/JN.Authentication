@@ -7,7 +7,7 @@ using JN.Authentication.HelperClasses;
 
 namespace JN.Authentication.APITest.Services
 {
-    public class ValidationService
+    public static class ValidationService
     {
 
         public static Task<ChallengeResult> ChallengeResponse(Exception ex)
@@ -15,7 +15,9 @@ namespace JN.Authentication.APITest.Services
             var res = new ChallengeResult();
 
             if (ex == null)
+            {
                 return Task.FromResult(res);
+            }
 
             if (ex is CustomAuthException exception)
             {

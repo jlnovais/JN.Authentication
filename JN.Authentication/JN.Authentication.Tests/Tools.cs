@@ -4,7 +4,7 @@ using System.Text;
 
 namespace JN.Authentication.Tests
 {
-    public class Tools
+    public static class Tools
     {
         public static StringContent GetContent()
         {

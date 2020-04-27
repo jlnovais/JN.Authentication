@@ -10,10 +10,19 @@ namespace JN.Authentication.APITest.Services
 {
     public class BasicValidationService : IBasicValidationService
     {
+        private readonly string _validUser = "test";
+        private readonly string _validPassword = "123";
+
+        private readonly string _errorUser = "testError";
+
+        private readonly string _exceptionUsername = "exception";
+
         public Task<ValidationResult> ValidateUser(string username, string password, string resourceName)
         {
-            if (username == "exception")
+            if (username == _exceptionUsername)
+            {
                 throw new ArgumentException("specified user causes an exception");
+            }
 
             var claims = new[]
             {
@@ -26,9 +35,9 @@ namespace JN.Authentication.APITest.Services
 
             var res = new ValidationResult
             {
-                Success = (username == "test" && password == "123"),
-                ErrorDescription = (username == "testError") ? "An error has occured" : "",
-                ErrorCode = (username == "testError") ? -1 : 0,
+                Success = (username == _validUser && password == _validPassword),
+                ErrorDescription = (username == _errorUser) ? "An error has occured" : "",
+                ErrorCode = (username == _errorUser) ? -1 : 0,
                 Claims = claims
             };
 

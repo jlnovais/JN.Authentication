@@ -8,10 +8,18 @@ namespace JN.Authentication.APITest.Services
 {
     public class ApiKeyValidationService : IApiKeyValidationService
     {
+        private readonly string _errorKey = "1234";
+        private readonly string _validKey = "123";
+        private readonly string _errorMsg = "An error has occured";
+        private readonly string _exceptionKey = "exception";
+
         public Task<ValidationResult> ValidateApiKey(string apiKey)
         {
-            if (apiKey == "exception")
+            if (apiKey == _exceptionKey)
+            {
                 throw new ArgumentException("specified key causes an exception");
+            }
+                
 
             var claims = new[]
             {
@@ -24,9 +32,9 @@ namespace JN.Authentication.APITest.Services
 
             var res = new ValidationResult
             {
-                Success = (apiKey == "123"),
-                ErrorDescription = (apiKey == "1234") ? "An error has occured" : "",
-                ErrorCode = (apiKey == "1234") ? -1 : 0,
+                Success = (apiKey == _validKey),
+                ErrorDescription = (apiKey == _errorKey) ? _errorMsg : "",
+                ErrorCode = (apiKey == _errorKey) ? -1 : 0,
                 Claims = claims
             };
 
