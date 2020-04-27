@@ -11,7 +11,7 @@ namespace JN.Authentication.Scheme
         public bool HttpPostMethodOnly { get; set; }
         public string HeaderName { get; set; } = "ApiKey";
 
-        public bool AcceptsQueryString { get; set; } = false;
+        public bool AcceptsQueryString { get; set; }
 
         /// <summary>
         /// Called to validate a api key.

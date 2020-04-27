@@ -86,7 +86,10 @@ namespace JN.Authentication.Scheme
                 if (_validationService != null)
                     userValidationResult = await _validationService.ValidateUser(user, password, Options.Realm);
                 else
+                {
                     userValidationResult = await Options.ValidateUser(user, password, Options.Realm);
+                }
+                    
 
                 if (!userValidationResult.Success && userValidationResult.ErrorCode != 0)
                     return AuthenticateResult.Fail(new CustomAuthException(userValidationResult.ErrorDescription,
