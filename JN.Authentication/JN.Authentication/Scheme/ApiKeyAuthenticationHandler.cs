@@ -58,8 +58,11 @@ namespace JN.Authentication.Scheme
                     userValidationResult = await Options.ValidateKey(key);
 
                 if (!userValidationResult.Success && userValidationResult.ErrorCode != 0)
+                {
                     return AuthenticateResult.Fail(new CustomAuthException(userValidationResult.ErrorDescription,
                         userValidationResult.ErrorCode));
+                }
+
             }
             catch (Exception ex)
             {
