@@ -25,6 +25,7 @@ namespace JN.Authentication.APITest.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            //can be empty
         }
 
         // PUT api/values/5

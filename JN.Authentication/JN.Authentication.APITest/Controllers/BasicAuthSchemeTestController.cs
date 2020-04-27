@@ -6,10 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace JN.Authentication.APITest.Controllers
 {
     [Route("api/[controller]")]
-
     [Authorize(AuthenticationSchemes = "Basic", Policy = "IsAdminPolicy")]
     [ApiController]
-
     public class BasicAuthSchemeTestController : ControllerBase
     {
         // GET api/values
