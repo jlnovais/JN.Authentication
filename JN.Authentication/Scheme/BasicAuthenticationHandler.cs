@@ -35,8 +35,9 @@ namespace JN.Authentication.Scheme
 
             if (Request.Method != "POST" && Options.HttpPostMethodOnly)
             {
-                if (Options.LogInformation)
+                if (Options.LogInformation) 
                     Logger.LogError("HTTP Method Not Allowed");
+
                 return AuthenticateResult.Fail(new CustomAuthException("HTTP Method Not Allowed", AuthenticationError.MethodNotAllowed));
             }
 
@@ -49,8 +50,9 @@ namespace JN.Authentication.Scheme
 
             if (!SchemeName.Equals(headerValue.Scheme, StringComparison.OrdinalIgnoreCase))
             {
-                if (Options.LogInformation)
+                if (Options.LogInformation) 
                     Logger.LogError("Not Basic authentication header");
+
                 return AuthenticateResult.NoResult();
             }
 
@@ -64,16 +66,20 @@ namespace JN.Authentication.Scheme
             catch (Exception exception)
             {
                 var msg = $"Invalid Basic authentication header - {exception.Message}";
-                if (Options.LogInformation)
+
+                if (Options.LogInformation) 
                     Logger.LogError(msg);
+
                 return AuthenticateResult.Fail(msg);
             }
 
             if (userDetails.Length != 2)
             {
                 var msg = "Invalid Basic authentication header - missing username or password. ";
+                
                 if (Options.LogInformation)
                     Logger.LogError(msg);
+
                 return AuthenticateResult.Fail(msg);
             }
 
@@ -86,10 +92,8 @@ namespace JN.Authentication.Scheme
                 if (_validationService != null)
                     userValidationResult = await _validationService.ValidateUser(user, password, Options.Realm);
                 else
-                {
                     userValidationResult = await Options.ValidateUser(user, password, Options.Realm);
-                }
-                    
+
 
                 if (!userValidationResult.Success && userValidationResult.ErrorCode != 0)
                     return AuthenticateResult.Fail(new CustomAuthException(userValidationResult.ErrorDescription,
