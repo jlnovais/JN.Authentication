@@ -15,17 +15,17 @@ namespace JN.Authentication.Scheme
 {
     public class ApiKeyAuthenticationHandler : AuthenticationHandler<ApiKeyAuthenticationOptions>
     {
-        private readonly IApiKeyValidationService _validationService;
+        private readonly IApiKeyValidationService _apiKeyValidationService;
 
         public ApiKeyAuthenticationHandler(
             IOptionsMonitor<ApiKeyAuthenticationOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
-            IApiKeyValidationService validationService = null)
+            IApiKeyValidationService apiKeyValidationService = null)
             : base(options, logger, encoder, clock)
         {
-            _validationService = validationService;
+            _apiKeyValidationService = apiKeyValidationService;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -54,8 +54,8 @@ namespace JN.Authentication.Scheme
 
             try
             {
-                if (_validationService != null)
-                    userValidationResult = await _validationService.ValidateApiKey(key);
+                if (_apiKeyValidationService != null)
+                    userValidationResult = await _apiKeyValidationService.ValidateApiKey(key);
                 else
                     userValidationResult = await Options.ValidateKey(key);
 
@@ -98,9 +98,9 @@ namespace JN.Authentication.Scheme
 
         private AuthenticationTicket GetAuthenticationTicket(IEnumerable<Claim> claims)
         {
-            var identity = new ClaimsIdentity(claims, Scheme.Name);
+            var identity = new ClaimsIdentity(claims, this.Scheme.Name);
             var principal = new ClaimsPrincipal(identity);
-            var ticket = new AuthenticationTicket(principal, Scheme.Name);
+            var ticket = new AuthenticationTicket(principal, this.Scheme.Name);
             return ticket;
         }
 
@@ -123,12 +123,15 @@ namespace JN.Authentication.Scheme
 
             var result = await Options.ChallengeResponse(authResult.Failure);
 
-            Response.StatusCode = result.StatusCode >= 200 ? result.StatusCode : defaultStatus;
+            Response.StatusCode = GetResponseStatusCode(result, defaultStatus);
 
             if (!string.IsNullOrWhiteSpace(result.TextToWriteOutput))
                 await Response.WriteAsync(result.TextToWriteOutput);
         }
 
-
+        private static int GetResponseStatusCode(ChallengeResult result, int defaultStatus)
+        {
+            return result.StatusCode >= 200 ? result.StatusCode : defaultStatus;
+        }
     }
 }

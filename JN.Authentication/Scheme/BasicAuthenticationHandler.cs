@@ -15,7 +15,7 @@ namespace JN.Authentication.Scheme
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<BasicAuthenticationOptions>
     {
-        private readonly IBasicValidationService _validationService;
+        private readonly IBasicValidationService _basicValidationService;
         private const string AuthorizationHeaderName = "Authorization";
         private const string SchemeName = "Basic";
 
@@ -24,10 +24,10 @@ namespace JN.Authentication.Scheme
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
-            IBasicValidationService validationService = null)
+            IBasicValidationService basicValidationService = null)
             : base(options, logger, encoder, clock)
         {
-            _validationService = validationService;
+            _basicValidationService = basicValidationService;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -88,8 +88,8 @@ namespace JN.Authentication.Scheme
             ValidationResult userValidationResult;
             try
             {
-                if (_validationService != null)
-                    userValidationResult = await _validationService.ValidateUser(user, password, Options.Realm);
+                if (_basicValidationService != null)
+                    userValidationResult = await _basicValidationService.ValidateUser(user, password, Options.Realm);
                 else
                     userValidationResult = await Options.ValidateUser(user, password, Options.Realm);
 
