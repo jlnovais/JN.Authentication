@@ -32,7 +32,6 @@ namespace JN.Authentication.Scheme
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-
             if (Request.Method != "POST" && Options.HttpPostMethodOnly)
             {
                 if (Options.LogInformation) 

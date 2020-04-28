@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using JN.Authentication.HelperClasses;
-using JN.Authentication.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using JN.Authentication.HelperClasses;
+using JN.Authentication.Interfaces;
 
 namespace JN.Authentication.Scheme
 {
@@ -33,6 +34,7 @@ namespace JN.Authentication.Scheme
             {
                 if (Options.LogInformation)
                     Logger.LogError("HTTP Method Not Allowed");
+
                 return AuthenticateResult.Fail(new CustomAuthException("HTTP Method Not Allowed", AuthenticationError.MethodNotAllowed));
             }
 
@@ -74,7 +76,6 @@ namespace JN.Authentication.Scheme
                 return AuthenticateResult.Fail(new CustomAuthException(msg, ex, AuthenticationError.OtherError));
             }
 
-
             if (!userValidationResult.Success)
             {
                 var msg = $"API Key not authenticated. Key {key}";
@@ -90,13 +91,18 @@ namespace JN.Authentication.Scheme
 
             var claims = userValidationResult.Claims;
 
-            var identity = new ClaimsIdentity(claims, Scheme.Name);
-            var principal = new ClaimsPrincipal(identity);
-            var ticket = new AuthenticationTicket(principal, Scheme.Name);
+            var ticket = GetAuthenticationTicket(claims);
 
             return AuthenticateResult.Success(ticket);
         }
 
+        private AuthenticationTicket GetAuthenticationTicket(IEnumerable<Claim> claims)
+        {
+            var identity = new ClaimsIdentity(claims, Scheme.Name);
+            var principal = new ClaimsPrincipal(identity);
+            var ticket = new AuthenticationTicket(principal, Scheme.Name);
+            return ticket;
+        }
 
 
         protected override async Task HandleChallengeAsync(AuthenticationProperties properties)
