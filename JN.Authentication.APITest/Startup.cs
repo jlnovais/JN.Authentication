@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using JN.Authentication.Scheme;
 using JN.Authentication.APITest.Services;
 using JN.Authentication.Interfaces;
+using Microsoft.Extensions.Hosting;
 
 namespace JN.Authentication.APITest
 {
@@ -25,7 +26,6 @@ namespace JN.Authentication.APITest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddControllers();
 
             var apiKeyAcceptsQueryString = GetAPIKeyAcceptsQueryString();
@@ -43,7 +43,6 @@ namespace JN.Authentication.APITest
 
                 });
 
-
             // Basic authentication - with post only
             services.AddAuthentication(BasicAuthenticationDefaults.AuthenticationScheme + "PostOnly")
                 .AddBasic(options =>
@@ -59,7 +58,6 @@ namespace JN.Authentication.APITest
             services.AddSingleton<IBasicValidationService, BasicValidationService>();
 
             // END: Basic authentication - using Scheme
-
 
 
             // ApiKey authentication - using Scheme
@@ -98,13 +96,10 @@ namespace JN.Authentication.APITest
 
             services.AddSingleton<IAuthorizationHandler, CustomAuthorizationHandler>();
             /*Authorization using custom policies - end*/
-
-
         }
 
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
