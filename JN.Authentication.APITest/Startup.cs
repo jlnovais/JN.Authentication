@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using JN.Authentication.Scheme;
 using JN.Authentication.APITest.Services;
 using JN.Authentication.Interfaces;
-using Microsoft.Extensions.Options;
 
 namespace JN.Authentication.APITest
 {
@@ -26,7 +25,8 @@ namespace JN.Authentication.APITest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddControllers();
 
             var apiKeyAcceptsQueryString = GetAPIKeyAcceptsQueryString();
             var httpPostMethodOnly = GetHttpPostMethodOnly();
@@ -116,7 +116,15 @@ namespace JN.Authentication.APITest
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
 
         private bool GetAPIKeyAcceptsQueryString()
