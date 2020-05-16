@@ -1,6 +1,6 @@
 # JN.Authentication
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Nuget](https://img.shields.io/nuget/v/JN.Authentication)](https://www.nuget.org/packages/JN.Authentication/) [![Build Status](https://travis-ci.com/jlnovais/JN.Authentication.svg?branch=master)](https://travis-ci.com/jlnovais/JN.Authentication) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/dc321d37d5f3495992531071fb43aa5f)](https://app.codacy.com/manual/jlnovais/JN.Authentication?utm_source=github.com&utm_medium=referral&utm_content=jlnovais/JN.Authentication&utm_campaign=Badge_Grade_Dashboard)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Nuget](https://img.shields.io/nuget/v/JN.Authentication)](https://www.nuget.org/packages/JN.Authentication/) [![Build Status](https://travis-ci.com/jlnovais/JN.Authentication.svg?branch=master)](https://travis-ci.com/jlnovais/JN.Authentication) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/dc321d37d5f3495992531071fb43aa5f)](https://app.codacy.com/manual/jlnovais/JN.Authentication?utm_source=github.com&utm_medium=referral&utm_content=jlnovais/JN.Authentication&utm_campaign=Badge_Grade_Dashboard) ![.NET Core](https://github.com/jlnovais/JN.Authentication/workflows/.NET%20Core/badge.svg)
 
 Simple Authentication implementation for ASP.NET Core.
 
