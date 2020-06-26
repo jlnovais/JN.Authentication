@@ -26,7 +26,7 @@ public void ConfigureServices(IServiceCollection services)
           options.LogInformation = true; //optional, default is false;
           options.HttpPostMethodOnly = false;
           options.HeaderEncoding = Encoding.UTF8; //optional, default is UTF8;
-          options.ChallengeResponse = ValidationService.ChallengeResponseBasic;
+          options.ChallengeResponse = ValidationService.ChallengeResponse;
       });
 
     // validation service
@@ -40,7 +40,7 @@ public void ConfigureServices(IServiceCollection services)
           options.HttpPostMethodOnly = false;
           options.AcceptsQueryString = true;
           options.HeaderName = "ApiKey";
-          options.ChallengeResponse = ValidationService.ChallengeResponseApikey;
+          options.ChallengeResponse = ValidationService.ChallengeResponse;
       });
 
     // validation service
@@ -48,8 +48,45 @@ public void ConfigureServices(IServiceCollection services)
 
 }
 ```
-`ChallengeResponseBasic` and `ChallengeResponseApikey` are delegates called before a 401 response is sent to the client.
+`ChallengeResponse` is a delegate called before a 401 response is sent to the client. It can be used to change the response. You can see an example [here](https://github.com/jlnovais/JN.Authentication/blob/master/JN.Authentication.APITest/Services/ValidationService.cs).
 
+`IBasicValidationService` and `IApiKeyValidationService` should have an implementation where the access details are validated (for example by querying a database).
+
+An implementation for `ValidateUser` of interface `IBasicValidationService` could be something like the following:
+
+```csharp
+public async Task<ValidationResult> ValidateUser(string username, string password, string resourceName)
+{
+    var user = await GetFromDB(username, password, resourceName);
+
+    if (user != null)
+    {
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.GivenName, user.FullName),
+            new Claim(ClaimTypes.Name, username),
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim("IsAdmin", user.IsAdmin),
+            new Claim(ClaimTypes.Role, user.Roles)
+        };
+
+        var res = new ValidationResult
+        {
+            Success = true,
+            Claims = claims
+        };
+
+        return res;
+    }
+
+    return new ValidationResult
+    {
+        Success = false,
+        ErrorDescription = "Invalid User",
+        ErrorCode = -1
+    };
+}
+```
 On your controllers add the `Authorize` atribute and choose the Authentication Scheme ("Basic" or "ApiKey")
 
 ```csharp
