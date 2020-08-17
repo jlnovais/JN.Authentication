@@ -18,10 +18,16 @@
 - API Key Custom Authentication Scheme
 </Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Changes v1.2.1:
+    <PackageReleaseNotes>Changes v1.2.2:
 
 - added ContentType property to ChallengeResult object returned by delegate ChallengeResponse. This is usefull to change response content type to "application/problem+json" if the content is a ProblemDetails object.
 - updated dependencies
+
+---------------
+
+Changes v1.2.1:
+
+(removed)
 
 -------
 Changes v1.2.0:
@@ -29,9 +35,9 @@ Changes v1.2.0:
 - minor updates in logging error messages
 - added validation interfaces to use with DI
 - updated tests</PackageReleaseNotes>
-    <AssemblyVersion>1.2.1.0</AssemblyVersion>
-    <FileVersion>1.2.1.0</FileVersion>
-    <Version>1.2.1</Version>
+    <AssemblyVersion>1.2.2.0</AssemblyVersion>
+    <FileVersion>1.2.2.0</FileVersion>
+    <Version>1.2.2</Version>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/jlnovais/JN.Authentication</PackageProjectUrl>
     <Copyright>Jose Novais, 2020</Copyright>

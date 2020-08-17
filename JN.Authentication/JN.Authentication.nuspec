@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>JN.Authentication</id>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <authors>José Novais</authors>
     <owners>José Novais</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,7 +10,8 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <icon>jn-Authentication.png</icon>
     <projectUrl>https://github.com/jlnovais/JN.Authentication</projectUrl>
-    <tags>Authentication;Basic;BasicAuth;BasicAuthentication;Auth;ApiKey;ApiKeyAuth;ApikeyAuthentication;Api;Key;ASPNET;core;aspnetcore;middleware;asp-net-core;basic-authentication;authentication-middleware;identity</tags>
+    <repository url="https://github.com/jlnovais/JN.Authentication" />
+    <tags>Authentication;Basic;BasicAuth;BasicAuthentication;Auth;ApiKey;ApiKeyAuth;ApikeyAuthentication;Api;Key;ASPNET;core;aspnetcore;middleware;asp-net-core;basic-authentication;authentication-middleware;identity;ProblemDetails</tags>
     <description>
       Simple Authentication implementation for ASP.NET Core.
 
@@ -20,7 +21,7 @@
     <summary>Basic Authentication and API Key Custom Authentication Schemes</summary>
     <copyright>Jose Novais, 2020</copyright>
     <releaseNotes>
-      Changes v1.2.1:
+      Changes v1.2.2:
 
       - added ContentType property to ChallengeResult object returned by delegate ChallengeResponse. This is useful to change response content type to "application/problem+json" if the content is a ProblemDetails object.
       - updated dependencies

@@ -7,7 +7,7 @@ Simple Authentication implementation for ASP.NET Core.
 ## Install
 Download the package from NuGet:
 
-`Install-Package JN.Authentication`
+`Install-Package JN.Authentication -Version [version number]`
 
 ## Usage
 First, you must add one (or both) authentication scheme to the application pipeline:
