@@ -45,7 +45,7 @@ public void ConfigureServices(IServiceCollection services)
 
 }
 ```
-`ChallengeResponseBasic` and `ChallengeResponseApikey` are delegates called before a 401 response is sent to the client.
+`ChallengeResponseBasic` and `ChallengeResponseApikey` are delegates called before a 401 response is sent to the client.  They can be to change the result (including response content type).
 
 On your controllers add the `Authorize` atribute and choose the Authentication Scheme ("Basic" or "ApiKey")
 

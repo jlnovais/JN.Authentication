@@ -153,6 +153,9 @@ namespace JN.Authentication.Scheme
 
             Response.StatusCode = result.StatusCode >= 200 ? result.StatusCode : defaultStatus;
 
+            if (!string.IsNullOrWhiteSpace(result.ContentType))
+                Response.ContentType = result.ContentType;
+
             if (Response.StatusCode == defaultStatus)
                 Response.Headers["WWW-Authenticate"] = $"Basic realm=\"{Options.Realm}\", charset=\"{Options.HeaderEncoding.HeaderName}\"";
 

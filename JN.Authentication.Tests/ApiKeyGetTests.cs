@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
@@ -73,6 +74,26 @@ namespace JN.Authentication.Tests
 
             Assert.That(response.StatusCode == HttpStatusCode.Unauthorized);
         }
+
+        [Test]
+        public async Task ApiKey_Get_InvalidKey_returnsExpectedContentType()
+        {
+            var content = Tools.GetContent();
+
+            var response = await _apiServer.CreateRequest(path)
+                .And(x => x.Content = content)
+                .AddHeader("Content-Type", "application/json")
+                .AddHeader("ApiKey", "invalid_key")
+                .GetAsync();
+
+            Assert.That(response.StatusCode == HttpStatusCode.Unauthorized);
+
+            Assert.IsNotNull(response.Content.Headers.ContentType.MediaType);
+            //Console.WriteLine($"media type: {response.Content.Headers.ContentType.MediaType}");
+            Assert.That(response.Content.Headers.ContentType.MediaType == "application/test");
+        }
+
+
 
         [Test]
         public async Task ApiKey_Get_NoKey_returnsUnauthorized()

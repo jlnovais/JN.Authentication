@@ -85,6 +85,24 @@ namespace JN.Authentication.Tests
         }
 
         [Test]
+        public async Task ApiKey_Post_InvalidKey_returnsExpectedContentType()
+        {
+            var content = Tools.GetContent();
+
+            var response = await _apiServer.CreateRequest(path)
+                .And(x => x.Content = content)
+                .AddHeader("Content-Type", "application/json")
+                .AddHeader("ApiKey", "invalid_key")
+                .PostAsync();
+
+            Assert.That(response.StatusCode == HttpStatusCode.Unauthorized);
+
+            Assert.IsNotNull(response.Content.Headers.ContentType.MediaType);
+            Assert.That(response.Content.Headers.ContentType.MediaType == "application/test");
+        }
+
+
+        [Test]
         public async Task ApiKey_Post_NoKey_returnsUnauthorized()
         {
             var content = Tools.GetContent();

@@ -125,6 +125,9 @@ namespace JN.Authentication.Scheme
 
             Response.StatusCode = GetResponseStatusCode(result, defaultStatus);
 
+            if (!string.IsNullOrWhiteSpace(result.ContentType))
+                Response.ContentType = result.ContentType;
+
             if (!string.IsNullOrWhiteSpace(result.TextToWriteOutput))
                 await Response.WriteAsync(result.TextToWriteOutput);
         }

@@ -27,7 +27,7 @@ namespace JN.Authentication.Scheme
 
         /// <summary>
         /// Called before a 401 response is sent to the client
-        /// </summary
+        /// </summary>
         public Func<Exception, Task<ChallengeResult>> ChallengeResponse { get; set; }
 
     }

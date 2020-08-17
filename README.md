@@ -48,7 +48,7 @@ public void ConfigureServices(IServiceCollection services)
 
 }
 ```
-`ChallengeResponse` is a delegate called before a 401 response is sent to the client. It can be used to change the response. You can see an example [here](https://github.com/jlnovais/JN.Authentication/blob/master/JN.Authentication.APITest/Services/ValidationService.cs).
+`ChallengeResponse` is a delegate called before a 401 response is sent to the client. It can be used to change the response (including content type). You can see an example [here](https://github.com/jlnovais/JN.Authentication/blob/master/JN.Authentication.APITest/Services/ValidationService.cs).
 
 `IBasicValidationService` and `IApiKeyValidationService` should have an implementation where the access details are validated (for example by querying a database).
 

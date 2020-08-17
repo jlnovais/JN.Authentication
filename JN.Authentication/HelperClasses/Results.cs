@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
+
 
 namespace JN.Authentication.HelperClasses
 {
@@ -13,6 +9,8 @@ namespace JN.Authentication.HelperClasses
     {
         public int StatusCode { get; set; }
         public string TextToWriteOutput { get; set; }
+
+        public string ContentType { get; set; }
     }
 
     public class ValidationResult

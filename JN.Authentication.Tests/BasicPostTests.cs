@@ -85,6 +85,27 @@ namespace JN.Authentication.Tests
         }
 
         [Test]
+        public async Task Basic_Post_InvalidUser_returnsExpectedContentType()
+        {
+            var content = Tools.GetContent();
+
+            string username = "test";
+            string password = "invalid_password";
+
+            var response = await _apiServer.CreateRequest(path)
+                .And(x => x.Content = content)
+                .AddHeader("Content-Type", "application/json")
+                .AddHeader("Authorization", "Basic " + Tools.BasicAuthCredentials(username, password))
+                .PostAsync();
+
+            Assert.That(response.StatusCode == HttpStatusCode.Unauthorized);
+
+            Assert.IsNotNull(response.Content.Headers.ContentType.MediaType);
+            Assert.That(response.Content.Headers.ContentType.MediaType == "application/test");
+        }
+
+
+        [Test]
         public async Task Basic_Post_NoHeather_returnsUnauthorized()
         {
             var content = Tools.GetContent();

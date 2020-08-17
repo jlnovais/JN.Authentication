@@ -27,18 +27,26 @@ namespace JN.Authentication.APITest.Services
                     case AuthenticationError.MethodNotAllowed:
                         res.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
                         res.TextToWriteOutput = "error was: Method Not Allowed";
+                        res.ContentType = "application/test";
                         break;
                     case AuthenticationError.OtherError:
                         res.StatusCode = (int)HttpStatusCode.BadRequest;
                         res.TextToWriteOutput = exception.Message;
+                        res.ContentType = "application/test";
                         break;
-
+                    case AuthenticationError.AuthenticationFailed:
+                        res.StatusCode = (int) HttpStatusCode.Unauthorized;
+                        res.TextToWriteOutput = exception.Message;
+                        res.ContentType = "application/test";
+                        break;
                     case (AuthenticationError)(-1):
                         res.StatusCode = (int)HttpStatusCode.RequestTimeout;
                         res.TextToWriteOutput = exception.Message;
+                        res.ContentType = "application/test";
                         break;
                     default:
                         res.TextToWriteOutput = ex.Message;
+                        //res.ContentType = "application/test";
                         break;
                 }
             }
