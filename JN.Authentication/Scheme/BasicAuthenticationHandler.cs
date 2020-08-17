@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 
 namespace JN.Authentication.Scheme
 {
@@ -148,7 +149,9 @@ namespace JN.Authentication.Scheme
             {
                 return;
             }
-            
+
+            var acceptHeader = Request.Headers.ContainsKey("Accept") ? Request.Headers["Accept"] : new StringValues();
+
             var result = await Options.ChallengeResponse(authResult.Failure, new RequestDetails
             {
                 Path = Request.Path,
@@ -156,7 +159,8 @@ namespace JN.Authentication.Scheme
                 Host = Request.Host,
                 Method = Request.Method,
                 QueryString = Request.QueryString,
-                Scheme = Request.Scheme
+                Scheme = Request.Scheme,
+                AcceptHeader = acceptHeader
             });
 
             Response.StatusCode = result.StatusCode >= 200 ? result.StatusCode : defaultStatus;

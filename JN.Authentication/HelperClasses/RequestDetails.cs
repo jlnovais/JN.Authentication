@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 
 namespace JN.Authentication.HelperClasses
 {
@@ -13,5 +14,6 @@ namespace JN.Authentication.HelperClasses
         public string Method { get; set; }
         public QueryString QueryString { get; set; }
         public string Scheme { get; set; }
+        public StringValues AcceptHeader { get; set; }
     }
 }
