@@ -89,7 +89,6 @@ namespace JN.Authentication.Tests
             Assert.That(response.StatusCode == HttpStatusCode.Unauthorized);
 
             Assert.IsNotNull(response.Content.Headers.ContentType.MediaType);
-            //Console.WriteLine($"media type: {response.Content.Headers.ContentType.MediaType}");
             Assert.That(response.Content.Headers.ContentType.MediaType == "application/test");
         }
 

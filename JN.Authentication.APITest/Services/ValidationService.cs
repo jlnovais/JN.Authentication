@@ -46,7 +46,6 @@ namespace JN.Authentication.APITest.Services
                         break;
                     default:
                         res.TextToWriteOutput = ex.Message;
-                        //res.ContentType = "application/test";
                         break;
                 }
             }
