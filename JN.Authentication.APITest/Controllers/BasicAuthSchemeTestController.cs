@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using AuthenticationDemo.Models;
+using JN.Authentication.Scheme;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JN.Authentication.APITest.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(AuthenticationSchemes = "Basic", Policy = "IsAdminPolicy")]
+    [Authorize(AuthenticationSchemes = BasicAuthenticationDefaults.AuthenticationScheme, Policy = "IsAdminPolicy")]
     [ApiController]
     public class BasicAuthSchemeTestController : ControllerBase
     {

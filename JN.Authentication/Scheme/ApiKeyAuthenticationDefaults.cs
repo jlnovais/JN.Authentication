@@ -2,6 +2,6 @@
 {
     public static class ApiKeyAuthenticationDefaults
     {
-        public static string AuthenticationScheme => "ApiKey";
+        public const string AuthenticationScheme = "ApiKey";
     }
 }
