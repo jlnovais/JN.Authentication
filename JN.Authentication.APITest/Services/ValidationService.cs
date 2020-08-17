@@ -9,7 +9,7 @@ namespace JN.Authentication.APITest.Services
     public static class ValidationService
     {
 
-        public static Task<ChallengeResult> ChallengeResponse(Exception ex)
+        public static Task<ChallengeResult> ChallengeResponse(Exception ex, RequestDetails requestDetails)
         {
             var res = new ChallengeResult();
 

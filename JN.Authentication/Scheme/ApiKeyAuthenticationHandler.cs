@@ -121,7 +121,15 @@ namespace JN.Authentication.Scheme
                 return;
             }
 
-            var result = await Options.ChallengeResponse(authResult.Failure);
+            var result = await Options.ChallengeResponse(authResult.Failure, new RequestDetails()
+            {
+                Path = Request.Path,
+                ContentType = Request.ContentType,
+                Host = Request.Host,
+                Method = Request.Method,
+                QueryString = Request.QueryString,
+                Scheme = Request.Scheme
+            });
 
             Response.StatusCode = GetResponseStatusCode(result, defaultStatus);
 
