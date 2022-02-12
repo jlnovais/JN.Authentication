@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>José Novais</Authors>
     <Company></Company>
@@ -43,6 +43,7 @@ Changes v1.2.0:
     <PackageProjectUrl>https://github.com/jlnovais/JN.Authentication</PackageProjectUrl>
     <Copyright>Jose Novais, 2020</Copyright>
     <Product>JN.Authentication - Basic Authentication and API Key Custom Authentication Schemes</Product>
+    <PackageIcon>packageIcon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -50,7 +51,12 @@ Changes v1.2.0:
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="jn-Authentication.png">
+    <None Update="packageIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="JN.Authentication.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="LICENSE.md">

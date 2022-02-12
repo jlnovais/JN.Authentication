@@ -28,9 +28,9 @@
       - updated dependencies
     </releaseNotes>
     <dependencies>
-      <group targetFramework=".NETCoreApp2.0">
-        <dependency id="Microsoft.AspNetCore.Authentication" version="2.2.0" exclude="Build,Analyzers" />
-      </group>
+	    <group targetFramework=".NETStandard2.0">
+		    <dependency id="Microsoft.AspNetCore.Authentication" version="2.2.0" exclude="Build,Analyzers" />
+	    </group>
     </dependencies>
   </metadata>
 </package>
