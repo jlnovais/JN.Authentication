@@ -52,9 +52,13 @@ Changes v1.2.0:
 		<Copyright>Jose Novais, 2024</Copyright>
 		<Product>JN.Authentication - Basic Authentication and API Key Custom Authentication Schemes</Product>
 		<PackageIcon>packageIcon.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\"/>
+		<None Include="LICENSE.md" Pack="true" PackagePath="\"/>
 	</ItemGroup>
 
 	<ItemGroup>
