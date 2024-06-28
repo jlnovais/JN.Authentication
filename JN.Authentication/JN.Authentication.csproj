@@ -1,24 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup Label="Globals">
-    <SccProjectName>SAK</SccProjectName>
-    <SccProvider>SAK</SccProvider>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccLocalPath>SAK</SccLocalPath>
-  </PropertyGroup>
+	<PropertyGroup Label="Globals">
+		<SccProjectName>SAK</SccProjectName>
+		<SccProvider>SAK</SccProvider>
+		<SccAuxPath>SAK</SccAuxPath>
+		<SccLocalPath>SAK</SccLocalPath>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>José Novais</Authors>
-    <Company></Company>
-    <Description>Simple Authentication implementation for ASP.NET Core.
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>José Novais</Authors>
+		<Company></Company>
+		<Description>
+			Simple Authentication implementation for ASP.NET Core.
 
-- Basic Authentication Scheme
-- API Key Custom Authentication Scheme
-</Description>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Changes v1.3.0:
+			- Basic Authentication Scheme
+			- API Key Custom Authentication Scheme
+		</Description>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageReleaseNotes>Changes v1.4.0:
+
+- updated TargetFramework to remove dependencies on deprecated packages
+
+---------------
+
+Changes v1.3.0:
 
 - added ContentType property to ChallengeResult object returned by delegate ChallengeResponse. This is useful to change response content type to "application/problem+json" if the content is a ProblemDetails object.
 - added information about the HTTP request to ChallengeResponse delegate (RequestDetails object)
@@ -35,36 +42,40 @@ Changes v1.2.0:
 
 - minor updates in logging error messages
 - added validation interfaces to use with DI
-- updated tests</PackageReleaseNotes>
-    <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.3.0</Version>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/jlnovais/JN.Authentication</PackageProjectUrl>
-    <Copyright>Jose Novais, 2020</Copyright>
-    <Product>JN.Authentication - Basic Authentication and API Key Custom Authentication Schemes</Product>
-    <PackageIcon>packageIcon.png</PackageIcon>
-  </PropertyGroup>
+- updated tests
+		</PackageReleaseNotes>
+		<AssemblyVersion>1.4.0.0</AssemblyVersion>
+		<FileVersion>1.4.0.0</FileVersion>
+		<Version>1.4.0</Version>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/jlnovais/JN.Authentication</PackageProjectUrl>
+		<Copyright>Jose Novais, 2024</Copyright>
+		<Product>JN.Authentication - Basic Authentication and API Key Custom Authentication Schemes</Product>
+		<PackageIcon>packageIcon.png</PackageIcon>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-  </ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="packageIcon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="JN.Authentication.nuspec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="LICENSE.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="README.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="packageIcon.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="JN.Authentication.nuspec">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="LICENSE.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="README.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

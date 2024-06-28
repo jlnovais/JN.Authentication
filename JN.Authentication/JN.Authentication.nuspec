@@ -1,36 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>JN.Authentication</id>
-    <version>1.3.0</version>
+    <version>1.4.0</version>
     <authors>José Novais</authors>
-    <owners>José Novais</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="expression">MIT</license>
-    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
-    <icon>jn-Authentication.png</icon>
+    <icon>packageIcon.png</icon>
     <projectUrl>https://github.com/jlnovais/JN.Authentication</projectUrl>
-    <repository url="https://github.com/jlnovais/JN.Authentication" />
-    <tags>Authentication;Basic;BasicAuth;BasicAuthentication;Auth;ApiKey;ApiKeyAuth;ApikeyAuthentication;Api;Key;ASPNET;core;aspnetcore;middleware;asp-net-core;basic-authentication;authentication-middleware;identity;ProblemDetails</tags>
-    <description>
-      Simple Authentication implementation for ASP.NET Core.
+    <description>Simple Authentication implementation for ASP.NET Core.
 
-      - Basic Authentication Scheme
-      - API Key Custom Authentication Scheme
-    </description>
-    <summary>Basic Authentication and API Key Custom Authentication Schemes</summary>
-    <copyright>Jose Novais, 2020</copyright>
-    <releaseNotes>
-      Changes v1.3.0:
+- Basic Authentication Scheme
+- API Key Custom Authentication Scheme</description>
+    <releaseNotes>Changes v1.4.0:	    
 
-      - added ContentType property to ChallengeResult object returned by delegate ChallengeResponse. This is useful to change response content type to "application/problem+json" if the content is a ProblemDetails object.
-      - added information about the HTTP request to ChallengeResponse delegate (RequestDetails object)
-      - updated dependencies
-    </releaseNotes>
+- updated TargetFramework to remove dependencies on deprecated packages 
+
+---------------
+
+Changes v1.3.0:
+
+- added ContentType property to ChallengeResult object returned by delegate ChallengeResponse. This is useful to change response content type to "application/problem+json" if the content is a ProblemDetails object.
+- added information about the HTTP request to ChallengeResponse delegate (RequestDetails object)
+- updated dependencies
+
+---------------
+
+Changes v1.2.1 - 1.2.2:
+
+(removed)
+
+-------
+Changes v1.2.0:
+
+- minor updates in logging error messages
+- added validation interfaces to use with DI
+- updated tests</releaseNotes>
+    <copyright>Jose Novais, 2024</copyright>
+    <repository type="git" commit="4d4978aedc509f06da8f3d505e1361ebfd1d1a2a" />
     <dependencies>
-	    <group targetFramework=".NETStandard2.0">
-		    <dependency id="Microsoft.AspNetCore.Authentication" version="2.2.0" exclude="Build,Analyzers" />
-	    </group>
+      <group targetFramework="net6.0" />
     </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net6.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
   </metadata>
-</package>
+</package> 
